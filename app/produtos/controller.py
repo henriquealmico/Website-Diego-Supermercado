@@ -1,4 +1,3 @@
-from datetime import datetime
 from app.produtos.models import Produto, Encarte
 from flask import request, jsonify
 from flask.views import MethodView
@@ -30,13 +29,13 @@ class ProdutoG(MethodView): #/produto
         if  isinstance(nome, str) and isinstance(marca, str) and isinstance(tamanho, str) and\
             isinstance(descricao, str) and isinstance(categoria, str) and isinstance(subcategoria, str) and\
             isinstance(preco_normal, float) and isinstance(preco_descontado, float) and isinstance(lote, str) and\
-            isinstance(validade, datetime) and isinstance(custo, float) and isinstance(estoque, int) and\
+            isinstance(validade, str) and isinstance(custo, float) and isinstance(estoque, int) and\
             isinstance(importado_nacional, str) and isinstance(proibido_menor_idade, bool) and isinstance(alergenos, str):
 
             produto = Produto.query.filter_by(lote=lote).first()
 
             if produto:
-                return {"code_status":"produto already exists"}, 400
+                return {"code_status":"produto already exists"}, 409 
 
             produto = Produto(nome=nome, marca=marca, tamanho=tamanho, descricao=descricao, categoria=categoria,\
                               subcategoria=subcategoria, preco_normal=preco_normal, preco_descontado=preco_descontado, lote=lote,\
@@ -88,7 +87,7 @@ class ProdutoId(MethodView): #/produto/<int:id>
         if  isinstance(nome, str) and isinstance(marca, str) and isinstance(tamanho, str) and\
             isinstance(descricao, str) and isinstance(categoria, str) and isinstance(subcategoria, str) and\
             isinstance(preco_normal, float) and isinstance(preco_descontado, float) and isinstance(lote, str) and\
-            isinstance(validade, datetime) and isinstance(custo, float) and isinstance(estoque, int) and\
+            isinstance(validade, str) and isinstance(custo, float) and isinstance(estoque, int) and\
             isinstance(importado_nacional, str) and isinstance(proibido_menor_idade, bool) and isinstance(alergenos, str):
 
             produto.nome = nome
@@ -109,7 +108,7 @@ class ProdutoId(MethodView): #/produto/<int:id>
 
 
             produto.update()
-            return produto.json(), 201
+            return produto.json(), 200
         
         else:
 
@@ -141,7 +140,7 @@ class ProdutoId(MethodView): #/produto/<int:id>
         if  isinstance(nome, str) and isinstance(marca, str) and isinstance(tamanho, str) and\
             isinstance(descricao, str) and isinstance(categoria, str) and isinstance(subcategoria, str) and\
             isinstance(preco_normal, float) and isinstance(preco_descontado, float) and isinstance(lote, str) and\
-            isinstance(validade, datetime) and isinstance(custo, float) and isinstance(estoque, int) and\
+            isinstance(validade, str) and isinstance(custo, float) and isinstance(estoque, int) and\
             isinstance(importado_nacional, str) and isinstance(proibido_menor_idade, bool) and isinstance(alergenos, str):
 
             produto.nome = nome
@@ -161,7 +160,7 @@ class ProdutoId(MethodView): #/produto/<int:id>
             produto.alergenos = alergenos
 
             produto.update()
-            return produto.json(), 201
+            return produto.json(), 200
         
         else:
 
@@ -190,7 +189,7 @@ class EncarteG(MethodView): #/encarte
         nome = body.get('nome')
 
 
-        if  isinstance(data_inicio, datetime) and isinstance(data_termino, datetime) and isinstance(nome, str):
+        if  isinstance(data_inicio, str) and isinstance(data_termino, str) and isinstance(nome, str):
 
             encarte = Encarte(nome=nome, data_inicio=data_inicio, data_termino=data_termino)
 
@@ -225,14 +224,14 @@ class EncarteId(MethodView): #/encarte/<int:id>
         nome = body.get('nome')
 
 
-        if  isinstance(data_inicio, datetime) and isinstance(data_termino, datetime) and isinstance(nome, str):
+        if  isinstance(data_inicio, str) and isinstance(data_termino, str) and isinstance(nome, str):
 
             encarte.data_inicio = data_inicio
             encarte.data_termino = data_termino
             encarte.nome = nome
 
             encarte.update()
-            return encarte.json(), 201
+            return encarte.json(), 200
         
         else:
 
@@ -249,14 +248,14 @@ class EncarteId(MethodView): #/encarte/<int:id>
         nome = body.get('nome', encarte.nome)
 
 
-        if  isinstance(data_inicio, datetime) and isinstance(data_termino, datetime) and isinstance(nome, str):
+        if  isinstance(data_inicio, str) and isinstance(data_termino, str) and isinstance(nome, str):
 
             encarte.nome = nome
             encarte.data_inicio = data_inicio
             encarte.data_termino = data_termino
 
             encarte.update()
-            return encarte.json(), 201
+            return encarte.json(), 200
         
         else:
 

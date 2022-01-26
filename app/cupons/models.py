@@ -15,11 +15,11 @@ class Cupom(BaseModel):
 
     id = db.Column(db.Integer, primary_key = True, autoincrement = True)
     desconto = db.Column(db.String(15), nullable = False)
-    código = db.Column(db.String(20), nullable = False, unique = True)
+    código = db.Column(db.String(20), nullable = False, unique = True, index = True)
     forma_utilizacao = db.Column(db.String(100), nullable = False)
     campanha = db.Column(db.String(20), nullable = False)
-    data_inicio = db.Column(db.DateTime, nullable = False)
-    data_termino = db.Column(db.DateTime, nullable = True)
+    data_inicio = db.Column(db.String(30), nullable = False)
+    data_termino = db.Column(db.String(30), nullable = True)
     limite_usuarios = db.Column(db.Integer, nullable = True)
     objetivo = db.Column(db.String(50), nullable = False) #Ex: Atrair clientes, venda por impulso, conversão de carrinho abandonado, etc
 
@@ -41,5 +41,4 @@ class Cupom(BaseModel):
             "data_inicio": self.data_inicio,
             "data_termino": self.data_termino,
             "limite_usuarios": self.limite_usuarios,
-            "objetivo": self.objetivo
         }

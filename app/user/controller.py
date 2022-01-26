@@ -26,11 +26,13 @@ class UserG(MethodView): #/user
             isinstance(nome, str) and isinstance(email, str) and isinstance(senha, str) and\
             isinstance(endereco, str) and isinstance(cidade, str) and isinstance(estado, str) and\
             isinstance(cep, str) and isinstance(ja_realizou_compra, bool) and isinstance(como_descobriu_site, str):
+            
+            
 
             user = User.query.filter_by(email=email).first()
 
             if user:
-                return {"code_status":"user already exists"}, 400
+                return {"code_status":"user already exists"}, 409 
 
             user = User(idade=idade, cpf=cpf, nome=nome, email=email, senha=senha,\
                         endereco=endereco, cidade=cidade, estado=estado, cep=cep,\
@@ -92,7 +94,7 @@ class UserId(MethodView): #/user/<int:id>
             user.como_descobriu_site = como_descobriu_site
 
             user.update()
-            return user.json(), 201
+            return user.json(), 200
         
         else:
 
@@ -135,7 +137,7 @@ class UserId(MethodView): #/user/<int:id>
             user.como_descobriu_site = como_descobriu_site
 
             user.update()
-            return user.json(), 201
+            return user.json(), 200
         
         else:
 

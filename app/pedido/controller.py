@@ -1,4 +1,3 @@
-from datetime import datetime
 from app.pedido.models import Carrinho, Pedido
 from flask import request, jsonify
 from flask.views import MethodView
@@ -21,9 +20,9 @@ class CarrinhoG(MethodView): #/carrinho
         agendamento_entrega = body.get('agendamento_entrega')
 
 
-        if  isinstance(preco_total, float) and isinstance(data_pedido, datetime) and isinstance(forma_pagamento, str) and\
+        if  isinstance(preco_total, float) and isinstance(data_pedido, str) and isinstance(forma_pagamento, str) and\
             isinstance(modelo_entrega, str) and isinstance(preco_entrega, str) and isinstance(quantidade_itens, int) and\
-            isinstance(prazo_entrega, str) and isinstance(agendamento_entrega, datetime):
+            isinstance(prazo_entrega, str) and isinstance(agendamento_entrega, str):
 
 
             carrinho = Carrinho(preco_total=preco_total, data_pedido=data_pedido, forma_pagamento=forma_pagamento, modelo_entrega=modelo_entrega,\
@@ -65,9 +64,9 @@ class CarrinhoId(MethodView): #/carrinho/<int:id>
         agendamento_entrega = body.get('agendamento_entrega')
 
 
-        if  isinstance(preco_total, float) and isinstance(data_pedido, datetime) and isinstance(forma_pagamento, str) and\
+        if  isinstance(preco_total, float) and isinstance(data_pedido, str) and isinstance(forma_pagamento, str) and\
             isinstance(modelo_entrega, str) and isinstance(preco_entrega, str) and isinstance(quantidade_itens, int) and\
-            isinstance(prazo_entrega, str) and isinstance(agendamento_entrega, datetime):
+            isinstance(prazo_entrega, str) and isinstance(agendamento_entrega, str):
 
             carrinho.preco_total = preco_total
             carrinho.data_pedido = data_pedido
@@ -80,7 +79,7 @@ class CarrinhoId(MethodView): #/carrinho/<int:id>
 
 
             carrinho.update()
-            return carrinho.json(), 201
+            return carrinho.json(), 200
         
         else:
 
@@ -102,9 +101,9 @@ class CarrinhoId(MethodView): #/carrinho/<int:id>
         agendamento_entrega = body.get('agendamento_entrega', carrinho.agendamento_entrega)
 
 
-        if  isinstance(preco_total, float) and isinstance(data_pedido, datetime) and isinstance(forma_pagamento, str) and\
+        if  isinstance(preco_total, float) and isinstance(data_pedido, str) and isinstance(forma_pagamento, str) and\
             isinstance(modelo_entrega, str) and isinstance(preco_entrega, str) and isinstance(quantidade_itens, int) and\
-            isinstance(prazo_entrega, str) and isinstance(agendamento_entrega, datetime):
+            isinstance(prazo_entrega, str) and isinstance(agendamento_entrega, str):
 
             carrinho.preco_total = preco_total
             carrinho.data_pedido = data_pedido
@@ -116,7 +115,7 @@ class CarrinhoId(MethodView): #/carrinho/<int:id>
             carrinho.agendamento_entrega = agendamento_entrega
 
             carrinho.update()
-            return carrinho.json(), 201
+            return carrinho.json(), 200
         
         else:
 
@@ -145,7 +144,7 @@ class PedidoG(MethodView): #/pedido
         numero_parcelas = body.get('numero_parcelas')
 
 
-        if  isinstance(pagamento_confirmado, bool) and isinstance(data_confirmacao_pagamento, datetime) and isinstance(numero_parcelas, int):
+        if  isinstance(pagamento_confirmado, bool) and isinstance(data_confirmacao_pagamento, str) and isinstance(numero_parcelas, int):
 
             pedido = Pedido(numero_parcelas=numero_parcelas, pagamento_confirmado=pagamento_confirmado, data_confirmacao_pagamento=data_confirmacao_pagamento)
 
@@ -180,14 +179,14 @@ class PedidoId(MethodView): #/pedido/<int:id>
         numero_parcelas = body.get('numero_parcelas')
 
 
-        if  isinstance(pagamento_confirmado, bool) and isinstance(data_confirmacao_pagamento, datetime) and isinstance(numero_parcelas, int):
+        if  isinstance(pagamento_confirmado, bool) and isinstance(data_confirmacao_pagamento, str) and isinstance(numero_parcelas, int):
 
             pedido.pagamento_confirmado = pagamento_confirmado
             pedido.data_confirmacao_pagamento = data_confirmacao_pagamento
             pedido.numero_parcelas = numero_parcelas
 
             pedido.update()
-            return pedido.json(), 201
+            return pedido.json(), 200
         
         else:
 
@@ -204,14 +203,14 @@ class PedidoId(MethodView): #/pedido/<int:id>
         numero_parcelas = body.get('numero_parcelas', pedido.numero_parcelas)
 
 
-        if  isinstance(pagamento_confirmado, bool) and isinstance(data_confirmacao_pagamento, datetime) and isinstance(numero_parcelas, int):
+        if  isinstance(pagamento_confirmado, bool) and isinstance(data_confirmacao_pagamento, str) and isinstance(numero_parcelas, int):
 
             pedido.numero_parcelas = numero_parcelas
             pedido.pagamento_confirmado = pagamento_confirmado
             pedido.data_confirmacao_pagamento = data_confirmacao_pagamento
 
             pedido.update()
-            return pedido.json(), 201
+            return pedido.json(), 200
         
         else:
 

@@ -9,7 +9,7 @@ class Pedido(BaseModel):
 
     id = db.Column(db.Integer, primary_key = True, autoincrement = True)
     pagamento_confirmado = db.Column(db.Boolean, nullable = False)
-    data_confirmacao_pagamento = db.Column(db.DateTime, nullable = True)
+    data_confirmacao_pagamento = db.Column(db.String(30), nullable = True)
     numero_parcelas = db.Column(db.Integer, nullable = True)
 
     #One-to-One Relationships
@@ -37,9 +37,9 @@ class Carrinho(BaseModel):
     prazo_entrega = db.Column(db.String(15), nullable = False)
     quantidade_itens = db.Column(db.Integer, nullable = False) 
     preco_total = db.Column(db.Float, nullable=False)
-    data_pedido = db.Column(db.DateTime, nullable = False)
+    data_pedido = db.Column(db.String(30), nullable = False)
     forma_pagamento = db.Column(db.String(15), nullable = False)
-    agendamento_entrega = db.Column(db.DateTime, nullable = True)
+    agendamento_entrega = db.Column(db.String(30), nullable = True)
 
 
     #One-to-One Relationships

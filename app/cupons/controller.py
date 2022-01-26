@@ -1,4 +1,3 @@
-from datetime import datetime
 from app.cupons.models import Cupom
 from flask import request, jsonify
 from flask.views import MethodView
@@ -21,14 +20,14 @@ class CupomG(MethodView): #/cupom
         data_termino = body.get('data_termino')
 
 
-        if  isinstance(desconto, str) and isinstance(data_inicio, datetime) and isinstance(código, str) and\
+        if  isinstance(desconto, str) and isinstance(data_inicio, str) and isinstance(código, str) and\
             isinstance(forma_utilizacao, str) and isinstance(campanha, str) and isinstance(limite_usuarios, int) and\
-            isinstance(objetivo, str) and isinstance(data_termino, datetime):
+            isinstance(objetivo, str) and isinstance(data_termino, str):
 
             cupom = Cupom.query.filter_by(código=código).first()
 
             if cupom:
-                return {"code_status":"cupom already exists"}, 400
+                return {"code_status":"cupom already exists"}, 409 
 
             cupom = Cupom(desconto=desconto, data_inicio=data_inicio, código=código, forma_utilizacao=forma_utilizacao,\
                                 campanha=campanha, limite_usuarios=limite_usuarios, objetivo=objetivo,\
@@ -69,9 +68,9 @@ class CupomId(MethodView): #/cupom/<int:id>
         data_termino = body.get('data_termino')
 
 
-        if  isinstance(desconto, float) and isinstance(data_inicio, datetime) and isinstance(código, str) and\
+        if  isinstance(desconto, float) and isinstance(data_inicio, str) and isinstance(código, str) and\
             isinstance(forma_utilizacao, str) and isinstance(campanha, str) and isinstance(limite_usuarios, int) and\
-            isinstance(objetivo, str) and isinstance(data_termino, datetime):
+            isinstance(objetivo, str) and isinstance(data_termino, str):
 
             cupom.desconto = desconto
             cupom.data_inicio = data_inicio
@@ -106,9 +105,9 @@ class CupomId(MethodView): #/cupom/<int:id>
         data_termino = body.get('data_termino', cupom.data_termino)
 
 
-        if  isinstance(desconto, float) and isinstance(data_inicio, datetime) and isinstance(código, str) and\
+        if  isinstance(desconto, float) and isinstance(data_inicio, str) and isinstance(código, str) and\
             isinstance(forma_utilizacao, str) and isinstance(campanha, str) and isinstance(limite_usuarios, int) and\
-            isinstance(objetivo, str) and isinstance(data_termino, datetime):
+            isinstance(objetivo, str) and isinstance(data_termino, str):
 
             cupom.desconto = desconto
             cupom.data_inicio = data_inicio

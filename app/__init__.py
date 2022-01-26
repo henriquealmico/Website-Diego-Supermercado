@@ -4,7 +4,7 @@ from .extensions import db, migrate
 from app.user.routes import user_api
 from app.cupons.routes import cupom_api
 from app.produtos.routes import produto_api, encarte_api
-from app.pedido.routes import pedido_api
+from app.pedido.routes import carrinho_api, pedido_api
 
 
 def create_app():
@@ -20,6 +20,8 @@ def create_app():
     app.register_blueprint(cupom_api)
     app.register_blueprint(produto_api)
     app.register_blueprint(pedido_api)
+    app.register_blueprint(carrinho_api)
+    app.register_blueprint(encarte_api)
     
     return app
 

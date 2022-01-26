@@ -13,28 +13,22 @@ associacao_produtos_encarte = Table ('association_product_encarte', BaseModel.me
                                 db.Column('id_produtos', db.ForeignKey('produto.id')))
 
 
-class BaseEncarteProduto(BaseModel):
 
-    __abstract__ = True
+class Produto(BaseModel):
 
+    __tablename__ = 'produto'
+    
     id = db.Column(db.Integer, primary_key = True, autoincrement = True)
     nome = db.Column(db.String(80), nullable = False)
     marca = db.Column(db.String(30), nullable = False)
     tamanho = db.Column(db.String(20), nullable = False)
     preco_descontado = db.Column(db.Float, nullable = True)
-
-
-
-class Produto(BaseEncarteProduto):
-
-    __tablename__ = 'produto'
-    
     descricao = db.Column(db.String(100), nullable = False)
     categoria = db.Column(db.String(30), nullable = False)
     subcategoria = db.Column(db.String(30), nullable = False)
     preco_normal = db.Column(db.Float, nullable = False)
     lote = db.Column(db.String(40), nullable = False, unique = True)
-    validade = db.Column(db.DateTime, nullable = False)
+    validade = db.Column(db.String(30), nullable = False)
     custo = db.Column(db.Float, nullable = False)
     estoque = db.Column(db.Integer, nullable = False)
     importado_nacional = db.Column(db.String(20), nullable = False)
@@ -59,9 +53,7 @@ class Produto(BaseEncarteProduto):
             "subcategoria": self.subcategoria,
             "preco_normal": self.preco_normal,
             "preco_descontado": self.preco_descontado,
-            "lote": self.lote,
             "validade": self.validade,
-            "custo": self.custo,
             "estoque": self.estoque,
             "importado_nacional": self.importado_nacional,
             "proibido_menor_idade": self.proibido_menor_idade,
@@ -70,14 +62,14 @@ class Produto(BaseEncarteProduto):
 
 
 
-class Encarte(BaseEncarteProduto):
+class Encarte(BaseModel):
 
     __tablename__ = 'encarte'
 
     id = db.Column(db.Integer, primary_key = True, autoincrement = True)
     nome = db.Column(db.String(80), nullable = False, unique = True)
-    data_inicio = db.Column(db.DateTime, nullable = False)
-    data_termino = db.Column(db.DateTime, nullable = False)
+    data_inicio = db.Column(db.String(30), nullable = False)
+    data_termino = db.Column(db.String(30), nullable = False)
 
 
     def json(self): 

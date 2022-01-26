@@ -31,7 +31,6 @@ class User(BaseModel):
             "cpf": self.cpf,
             "idade": self.idade,
             "email": self.email,
-            "senha": self.senha,
             "endereco": self.endereco,
             "cidade": self.cidade,
             "estado": self.estado,
