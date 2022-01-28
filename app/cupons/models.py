@@ -25,7 +25,7 @@ class Cupom(BaseModel):
 
 
     #Many-to-Many Relationships
-    users = db.relationship("User", secondary = associacao_cupom_user)
+    users = db.relationship("User", secondary = associacao_cupom_user, backref = "cupom")
 
     #One-to-Many Relationships
     carrinho = db.relationship("Carrinho")

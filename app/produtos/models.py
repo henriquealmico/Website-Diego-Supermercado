@@ -3,11 +3,13 @@ from app.extensions import db
 from sqlalchemy import Table
 
 
+#Many-to-Many Relationships
 associacao_produtos_carrinho = Table ('association_product_cart', BaseModel.metadata,
                                 db.Column('id_carrinho', db.ForeignKey('carrinho.id')),
                                 db.Column('id_produtos', db.ForeignKey('produto.id')))
 
 
+#Many-to-Many Relationships
 associacao_produtos_encarte = Table ('association_product_encarte', BaseModel.metadata,
                                 db.Column('id_encarte', db.ForeignKey('encarte.id')),
                                 db.Column('id_produtos', db.ForeignKey('produto.id')))
@@ -37,8 +39,8 @@ class Produto(BaseModel):
 
 
     #Many-to-Many Relationships
-    carrinhos = db.relationship("Carrinho", secondary = associacao_produtos_carrinho)
-    encartes = db.relationship("Encarte", secondary = associacao_produtos_encarte)
+    carrinhos = db.relationship("Carrinho", secondary = associacao_produtos_carrinho, backref="produto")
+    encartes = db.relationship("Encarte", secondary = associacao_produtos_encarte, backref="produto")
 
 
     def json(self): 
@@ -59,26 +61,3 @@ class Produto(BaseModel):
             "proibido_menor_idade": self.proibido_menor_idade,
             "alergenos": self.alergenos           
         }
-
-
-
-class Encarte(BaseModel):
-
-    __tablename__ = 'encarte'
-
-    id = db.Column(db.Integer, primary_key = True, autoincrement = True)
-    nome = db.Column(db.String(80), nullable = False, unique = True)
-    data_inicio = db.Column(db.String(30), nullable = False)
-    data_termino = db.Column(db.String(30), nullable = False)
-
-
-    def json(self): 
-
-        return {
-            "id": self.id,
-            "nome": self.nome,
-            "data_inicio": self.data_inicio,
-            "data_termino": self.data_termino,           
-        }
-
-
